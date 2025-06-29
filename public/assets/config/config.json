@@ -1,0 +1,8 @@
+{
+    "production": false,
+    "postLogoutUrl": "http://localhost:4200/",
+    "clientId": "bcf02653-e0d8-4bea-9e8c-f4fb22cc2daf",
+    "redirectUri": "http://localhost:4200/",
+    "authority": "https://login.microsoftonline.com/ccdaef59-7db0-475e-89e0-1e51f94bc456",
+    "backendUrl": "http://localhost:8080/"
+}
