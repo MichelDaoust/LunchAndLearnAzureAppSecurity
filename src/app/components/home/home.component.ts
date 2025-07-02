@@ -101,6 +101,33 @@ export class HomeComponent {
     });
   }
 
+    accessTokenOtherAPI() {
+
+    if (this.authService.instance.getAllAccounts().length > 0)
+        this.authService.instance.setActiveAccount(this.authService.instance.getAllAccounts()[0]);
+    
+    const account = this.authService.instance.getActiveAccount();
+
+    if (!account) {
+      console.warn('Aucun compte actif');
+      return;
+    }
+
+    const request: SilentRequest = {
+      scopes: ['api://b537fe5e-366d-4e53-a8cf-44c64b3f765e/RegApp2.Read'],
+      account
+    };
+
+    this.authService.acquireTokenSilent(request).subscribe({
+      next: (result) => {
+        console.log('Access token:', result.accessToken); // <- voici le JWT
+      },
+      error: (error) => {
+        console.error('Erreur de récupération du jeton:', error);
+      }
+    });
+  }
+
 
   
 }
