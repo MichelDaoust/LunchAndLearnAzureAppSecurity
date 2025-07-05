@@ -1,6 +1,7 @@
 import { InteractionType, SilentRequest } from '@azure/msal-browser';
 
 import { AppConfigService } from '../../services/app-config.service';
+import { CallAPIService } from '../../services/callAPIService.service';
 import { Component } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
 
@@ -9,8 +10,15 @@ import { MsalService } from '@azure/msal-angular';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
+
+
 export class HomeComponent {
-  constructor(private authService: MsalService, private config: AppConfigService) { }
+
+  tokenReceived: string = '';
+  apiResult : string = '';
+
+  constructor(private authService: MsalService, private config: AppConfigService, private readonly dataService: CallAPIService) { }
 
   logout2() {
     console.log('logout called');
@@ -39,6 +47,7 @@ export class HomeComponent {
 
     this.authService.acquireTokenSilent(request).subscribe({
       next: (result) => {
+        this.tokenReceived = result.accessToken;
         console.log('Access token:', result.accessToken); // <- voici le JWT
       },
       error: (error) => {
@@ -66,6 +75,7 @@ export class HomeComponent {
 
     this.authService.acquireTokenSilent(request).subscribe({
       next: (result) => {
+        this.tokenReceived = result.accessToken;
         console.log('Access token:', result.accessToken); // <- voici le JWT
       },
       error: (error) => {
@@ -94,6 +104,8 @@ export class HomeComponent {
     this.authService.acquireTokenSilent(request).subscribe({
       next: (result) => {
         console.log('Access token:', result.accessToken); // <- voici le JWT
+        this.tokenReceived = result.accessToken;
+
       },
       error: (error) => {
         console.error('Erreur de récupération du jeton:', error);
@@ -101,7 +113,7 @@ export class HomeComponent {
     });
   }
 
-    accessTokenOtherAPI() {
+  accessTokenOtherAPI() {
 
     if (this.authService.instance.getAllAccounts().length > 0)
         this.authService.instance.setActiveAccount(this.authService.instance.getAllAccounts()[0]);
@@ -120,6 +132,7 @@ export class HomeComponent {
 
     this.authService.acquireTokenSilent(request).subscribe({
       next: (result) => {
+        this.tokenReceived = result.accessToken;
         console.log('Access token:', result.accessToken); // <- voici le JWT
       },
       error: (error) => {
@@ -128,6 +141,22 @@ export class HomeComponent {
     });
   }
 
-
   
+callMainAPI(){
+ this.dataService.callAPI1(this.tokenReceived).subscribe( 
+          (response) => {
+            this.apiResult = JSON.stringify(response)
+            ;
+            console.log('Data fetched successfully:', this.apiResult);
+          },
+          (error) => {
+            this.apiResult = "error"
+            console.error('Error fetching data:', "error");
+          }
+        );
+  
+} 
+
+
+
 }

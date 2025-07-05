@@ -3,12 +3,24 @@
 
 <button (click)="logout2()">Logout</button>
 <br/>
+<br/>
 <button (click)="accessTokenContributor()">Access Token with defined scope contributor</button>
 <br/>
 <button (click)="accessTokenDefault()">Access Token with .default</button>
 <br/>
-
 <button (click)="accessTokenReader()">Access Token with reader scope</button>
 <br/>
-<button (click)="accessTokenOtherAPI()">Access Token with reader scope of another api</button>
+<button (click)="accessTokenOtherAPI()">Access Token On another api scope</button>
+<br/>
+<br/>
+<p> Token Received : </p>
+<textarea rows="15" cols="200"> {{tokenReceived}}</textarea>
+<br/>
+<br/>
 
+<button (click)="callMainAPI()">Call Main API</button>
+
+<p> Value Received : </p>
+<textarea rows="3" cols="200"> {{apiResult}}</textarea>
+<br/>
+<br/>

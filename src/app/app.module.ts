@@ -1,16 +1,11 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { AppConfigService } from './services/app-config.service';
 import {
   BrowserCacheLocation,
   IPublicClientApplication,
   InteractionType,
   PublicClientApplication,
 } from '@azure/msal-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {
   MSAL_GUARD_CONFIG,
   MSAL_INSTANCE,
@@ -22,9 +17,15 @@ import {
   MsalInterceptorConfiguration,
   MsalService,
 } from '@azure/msal-angular';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AzureAuthService } from './services/azure-auth.service';
+
+import { AppComponent } from './app.component';
+import { AppConfigService } from './services/app-config.service';
+import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AzureAuthService } from './services/azure-auth.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HomeComponent } from './components/home/home.component';
+import { provideHttpClient } from '@angular/common/http';
 
 export const initConfig = (appConfig: AppConfigService) => () =>
   appConfig.loadConfig();
@@ -78,7 +79,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule
+      
   ],
   providers: [
     provideClientHydration(),
