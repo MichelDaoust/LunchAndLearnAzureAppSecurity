@@ -21,5 +21,13 @@ export class CallAPIService {
       return data;
   }
 
+   callStorageGet(token: string): Observable<any> {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
+      const data = this.httpClient.get('https://localhost:7163/MainAPI/storage/Get', {headers});
+      return data;
+  }
+
+
+  
 }

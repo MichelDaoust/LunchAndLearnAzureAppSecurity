@@ -17,6 +17,7 @@ export class HomeComponent {
 
   tokenReceived: string = '';
   apiResult : string = '';
+  blobContent : string = '';
 
   constructor(private authService: MsalService, private config: AppConfigService, private readonly dataService: CallAPIService) { }
 
@@ -154,9 +155,22 @@ callMainAPI(){
             console.error('Error fetching data:', "error");
           }
         );
+}
   
-} 
+callMainAPIStorageGet(){
+ this.dataService.callStorageGet(this.tokenReceived).subscribe ({ 
+          next: (result) => {
+            this.blobContent = result.bContent
+            ;
+            console.log('Data fetched successfully:', this.blobContent);
+          },
+          error : (error) => {
+            this.blobContent = "error"
+            console.error('Error fetching data blob:', "error");
+          }
+});
 
-
+        
+      }
 
 }
