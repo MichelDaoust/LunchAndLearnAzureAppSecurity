@@ -18,6 +18,7 @@ export class HomeComponent {
   tokenReceived: string = '';
   apiResult : string = '';
   blobContent : string = '';
+  secret : string = '';
 
   constructor(private authService: MsalService, private config: AppConfigService, private readonly dataService: CallAPIService) { }
 
@@ -168,9 +169,26 @@ callMainAPIStorageGet(){
             this.blobContent = "error"
             console.error('Error fetching data blob:', "error");
           }
-});
+        });
 
         
       }
 
+callMainAPIKeyvaultSecret(){
+ this.dataService.callKeyVaultSecret(this.tokenReceived).subscribe ({ 
+          next: (result) => {
+            this.secret = result.secret;
+            ;
+            console.log('Data fetched successfully:', this.blobContent);
+          },
+          error : (error) => {
+            this.secret = "error"
+            console.error('Error fetching data blob:', "error");
+          }
+        });
+
+        
+      }
+
+      
 }

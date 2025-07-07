@@ -29,5 +29,12 @@ export class CallAPIService {
   }
 
 
+     callKeyVaultSecret(token: string): Observable<any> {
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      const data = this.httpClient.get('https://localhost:7163/MainAPI/keyVault/GetSecret', {headers});
+      return data;
+  }
+
   
 }

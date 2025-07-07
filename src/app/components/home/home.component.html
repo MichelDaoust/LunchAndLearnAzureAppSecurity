@@ -18,16 +18,23 @@
 <br/>
 <br/>
 
-<button (click)="callMainAPI()">Call Main API</button>
+<button (click)="callMainAPI()">Call Main API from Personal tenant (contributor scope)</button>
 
 <p> Value Received : </p>
 <textarea rows="3" cols="200"> {{apiResult}}</textarea>
 <br/>
 <br/>
 
-<button (click)="callMainAPIStorageGet()">Get a Blob content</button>
+<button (click)="callMainAPIStorageGet()">Get a Blob content from CGI tenant (contributor scope)</button>
 
 <p> Value Received : </p>
 <textarea rows="3" cols="200"> {{blobContent}}</textarea>
+<br/>
+<br/>
+
+<button (click)="callMainAPIKeyvaultSecret()">Get a secret from CGI tenant (reader scope)</button>
+
+<p> Value Received : </p>
+<textarea rows="1" cols="200"> {{secret}}</textarea>
 <br/>
 <br/>
